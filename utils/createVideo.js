@@ -1,7 +1,6 @@
 const videoshow = require('videoshow')
 
-function createVideo(images) {
-  
+const createVideo = (images) => {
   videoshow(images)
     .save('video.mp4')
     .on('start', function (command) {
@@ -13,4 +12,8 @@ function createVideo(images) {
     .on('end', function (output) {
       console.log('Video created in:', output)
     })
+}
+
+module.exports = {
+    createVideo
 }
