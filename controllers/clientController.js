@@ -1,4 +1,4 @@
-const createVideo = require('../utils/createVideo');
+const {createVideo} = require('../utils/createVideo');
 
 exports.getClient = (req, res) => {
     const clientId = req.params.id
