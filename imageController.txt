@@ -1,0 +1,60 @@
+/**
+ * Multer middleware for handling file uploads.
+ * @module multer
+ */
+
+const multer = require('multer');
+const path = require('path');
+
+/**
+ * Configuration for Multer storage.
+ * @type {multer.StorageEngine}
+ */
+const storage = multer.diskStorage({
+  /**
+   * Destination for uploaded files.
+   * @param {Express.Request} req - The request object.
+   * @param {Express.Multer.File} file - The file object.
+   * @param {Function} cb - The callback function.
+   */
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+
+  /**
+   * Filename for uploaded files.
+   * @param {Express.Request} req - The request object.
+   * @param {Express.Multer.File} file - The file object.
+   * @param {Function} cb - The callback function.
+   */
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+/**
+ * Multer instance with the configured storage.
+ * @type {multer.Multer}
+ */
+const upload = multer({ storage: storage });
+
+/**
+ * Function to handle file uploads.
+ * @param {Express.Request} req - The request object.
+ * @param {Express.Response} res - The response object.
+ */
+const uploadFile = (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
+  res.send(`File uploaded successfully: ${req.file.filename}`);
+};
+
+/**
+ * Exports the Multer instance and the uploadFile function.
+ * @type {Object}
+ */
+module.exports = {
+  upload,
+  uploadFile
+};
