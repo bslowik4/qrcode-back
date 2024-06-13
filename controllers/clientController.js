@@ -8,5 +8,6 @@ exports.getClient = (req, res) => {
 exports.renderVideo = (req, res) => {
     const clientId = req.params.id
     res.send(`Details of user with ID: ${clientId}`)
-    createVideo(['../uploads/test1.png','../uploads/test2.png'])
+    console.log('../uploads/test1.png')
+    createVideo(['./uploads/test1.png','./uploads/test2.png'])
 }
