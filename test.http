@@ -1,4 +1,4 @@
 http://localhost:3001/edit/1234
 
 ###
-http://localhost:3001/edit/1234/create
+HTTP POST http://localhost:3001/edit/1234/create
