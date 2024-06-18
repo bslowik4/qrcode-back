@@ -2,17 +2,26 @@ const fs = require('fs');
 const path = require('path');
 const directoryPath = path.join(__dirname, 'uploads');
 
+// Define common image file extensions
+const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+
 function getFilesStartingWithPrefix(prefix) {
     try {
+        console.log('Directory path:', directoryPath);
         if (!fs.existsSync(directoryPath)) {
-            throw new Error(`Directory does not exist.`);
+            throw new Error(`Directory does not exist at path: ${directoryPath}`);
         }
-        return fs.readdirSync(directoryPath)
-            .filter(file => file.startsWith(prefix));
+        const files = fs.readdirSync(directoryPath);
+        console.log('Files in directory:', files);
+
+        return files
+            .filter(file => file.startsWith(prefix) && imageExtensions.includes(path.extname(file).toLowerCase()))
+            .map(file => path.join(directoryPath, file));
     } catch (err) {
         console.error('Error reading directory:', err.message);
         return [];
     }
 }
 
-module.exports = getFilesStartingWithPrefix
+module.exports = getFilesStartingWithPrefix;
+

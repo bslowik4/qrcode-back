@@ -1,7 +1,6 @@
 const {createVideo} = require('../utils/createVideo');
 const loadAllFilesWithId = require('../utils/loadAllFilesWithId');
-const directoryPath = path.join(__dirname, 'uploads');
-const prefix = '/';
+
 
 exports.getClient = (req, res) => {
     const clientId = req.params.id
