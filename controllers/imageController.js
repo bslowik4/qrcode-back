@@ -1,25 +1,11 @@
-const multer = require('multer');
-const path = require('path');
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+const uploadFiles = (req, res) => {
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).send('No files uploaded.');
   }
-});
-
-const upload = multer({ storage: storage });
-
-const uploadFile = (req, res) => {
-  if (!req.file) {
-    return res.status(400).send('No file uploaded.');
-  }
-  res.send(`File uploaded successfully: ${req.file.filename}`);
+  const filePaths = req.files.map(file => file.path);
+  res.send(`Files uploaded successfully: ${filePaths.join(', ')}`);
 };
 
 module.exports = {
-  upload,
-  uploadFile
+  uploadFiles
 };
