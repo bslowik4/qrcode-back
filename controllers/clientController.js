@@ -1,12 +1,17 @@
 const {createVideo} = require('../utils/createVideo');
+const loadAllFilesWithId = require('../utils/loadAllFilesWithId');
+const directoryPath = path.join(__dirname, 'uploads');
+const prefix = '/';
 
 exports.getClient = (req, res) => {
     const clientId = req.params.id
     res.send(`Details of user with ID: ${clientId}`)
 }
 
-exports.renderVideo = (req, res) => {
+exports.renderVideo = async (req, res) => {
     const clientId = req.params.id
     res.send(`Details of user with ID: ${clientId}`)
-    createVideo(['./uploads/step_1.png','./uploads/step_2.png'])
+    const clientPhotos = await loadAllFilesWithId(clientId)
+    console.log(clientPhotos)
+    await createVideo(clientPhotos)
 }
