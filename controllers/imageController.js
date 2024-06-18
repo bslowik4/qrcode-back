@@ -1,4 +1,5 @@
 const uploadFiles = (req, res) => {
+  console.log("it works")
   if (!req.files || req.files.length === 0) {
     return res.status(400).send('No files uploaded.');
   }

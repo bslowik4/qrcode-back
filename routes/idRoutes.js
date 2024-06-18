@@ -9,8 +9,6 @@ router.get('/:id', clientController.getClient);
 
 router.post('/:id/create', clientController.renderVideo);
 
-router.post('/:id/video', clientController.createVideo);
-
 router.post('/:id/image', upload.array('images', 2), imageController.uploadFiles);
 
 module.exports = router;

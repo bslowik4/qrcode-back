@@ -1,4 +1,4 @@
 http://localhost:3001/edit/1234
 
 ###
-POST http://localhost:3001/edit/1234/create
+POST http://localhost:3001/edit/1234/image
