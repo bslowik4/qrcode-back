@@ -1,11 +1,10 @@
 const fs = require('fs');
 const path = require('path');
-const directoryPath = path.join(__dirname, 'uploads');
 
-// Define common image file extensions
 const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
 
 function getFilesStartingWithPrefix(prefix) {
+    const directoryPath = path.join(__dirname, '..', prefix, 'uploads');
     try {
         console.log('Directory path:', directoryPath);
         if (!fs.existsSync(directoryPath)) {
