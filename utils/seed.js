@@ -28,32 +28,42 @@ async function createTableAndAlterSequence() {
 }
 
 // Function to insert data into the table
-async function insertUser(password, pathToImages, pathToVideo) {
+async function insertUser(password) {
   const insertUserQuery = `
-    INSERT INTO users (password, pathToImages, pathToVideo)
-    VALUES ($1, $2, $3)
+    INSERT INTO users (password)
+    VALUES ($1)
     RETURNING id;
   `;
 
   try {
-    const result = await query(insertUserQuery, [password, pathToImages, pathToVideo]);
-    console.log('Inserted user with id:', result.rows[0].id);
+    const result = await query(insertUserQuery, [password]);
+    const id = result.rows[0].id;
+
+    const pathToImages = `/uploads/${id}/`;
+    const pathToVideo = `/video/${id}/`;
+
+    const updateUserPathsQuery = `
+      UPDATE users
+      SET pathToImages = $1, pathToVideo = $2
+      WHERE id = $3;
+    `;
+
+    await query(updateUserPathsQuery, [pathToImages, pathToVideo, id]);
+
+    console.log(`Inserted user with id: ${id}`);
   } catch (err) {
     console.error('Error inserting user:', err.message);
     console.error(err.stack);
   }
 }
 
-// Main function to run the script
 async function main() {
   await createTableAndAlterSequence();
 
-  // Example data to insert
-  const password = 'hashed_password';
-  const pathToImages = 'path/to/images';
-  const pathToVideo = 'path/to/video';
-
-  await insertUser(password, pathToImages, pathToVideo);
+  // Insert two dummy users
+  await insertUser('hashed_password_1');
+  await insertUser('hashed_password_2');
 }
 
 main();
+
