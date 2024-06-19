@@ -12,5 +12,5 @@ exports.renderVideo = async (req, res) => {
     res.send(`Details of user with ID: ${clientId}`)
     const clientPhotos = await loadAllFilesWithId(clientId)
     console.log(clientPhotos)
-    await createVideo(clientPhotos)
+    await createVideo(clientPhotos, clientId)
 }

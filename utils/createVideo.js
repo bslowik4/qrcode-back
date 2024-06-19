@@ -1,8 +1,8 @@
 const videoshow = require('videoshow')
 
-const createVideo = (images) => {
+const createVideo = (images, id) => {
   videoshow(images)
-    .save('video.mp4')
+    .save(`/videos/${id}/video.mp4`)
     .on('start', function (command) {
       console.log('ffmpeg process started:', command)
     })
