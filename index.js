@@ -17,6 +17,17 @@ app.use('/edit', idRoutes);
 const videoRoutes = require('./routes/videoRoutes');
 app.use('/video', videoRoutes);
 
+const { generateQRCode } = require('./controllers/qrcodeController');
+app.get('/qrcode/:id', (req, res) => {
+  const url = `http://localhost:3001/video/${req.params.id}`; // Replace with your desired URL
+  const qrSvg = generateQRCode(url);
+  
+  res.type('svg');
+  res.send(qrSvg);
+});
+
+
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
