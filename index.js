@@ -14,6 +14,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const idRoutes = require('./routes/idRoutes');
 app.use('/edit', idRoutes);
 
+const videoRoutes = require('./routes/videoRoutes');
+app.use('/video', videoRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
